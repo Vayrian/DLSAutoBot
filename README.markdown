@@ -1,146 +1,191 @@
-# Doomsday_AutoActionClicker
+# 🚀 DLSAutoBot
 
-## AutoClickAction Framework
+**Dynamic Window Auto Farmer for _Doomsday: Last Survivors_ (Windows)**
 
-### Overview
+A smart automation bot designed to mimic human behavior while farming efficiently.  
+No fixed window positioning. No rigid patterns. Just smooth, randomized, human-like automation.
 
-The `Doomsday_AutoActionClicker` automates Dommsday: Last survivor tasks in a random way that mimics human behavour, so you can autofarm on a pc you wont be using for a bit.
+This system is fully modular and customizable to your specific base layout. It will also work with other click-based games.
+
+Recommended for use during work or times you will not be using your computer.
+
+---
+## ✨ What changed?
+### Complete bot overhaul updates:
+**UPDATE 2.0**
+- **Bot now only focuses on the selected window**, preventing you from having to use pixel-perfection or alignment to use without it clicking off the game. You can now put the game window anywhere on your screen, and it will always click inside it. (Be aware that you must not be using your pc at the same time as running the bot, as it will control your mouse.
+
+- **New cooldown feature** allows you to time and run actions at different times for full customization.
+
+
+  ```
+  ***Example***
+  heal_troops - 10 mins
+  zombies - 4 mins
+  alliance donations - 5 hours
+  ```
+## ✨ Features
+
+- 🧠 **Dynamic Window Detection**  
+  Works no matter where your game window is placed or resized
+
+- ⏱️ **Per-Action Cooldowns**  
+  Customize cooldown timers (in minutes) for each action
+
+- 🔀 **Randomized Action Order**  
+  Prevents predictable patterns by shuffling actions every cycle
+
+- 🖱️ **Human-Like Clicking**  
+  Smooth mouse movement, focus handling, and realistic delays
+
+- 🛠️ **Action Recorder Tool**  
+  Easily create custom actions without coding everything manually
+
+- 🛑 **Emergency Stop (ESC)**  
+  Instantly stop the bot at any time
+
+- 🔒 **Administrator terminal Recommended**  
+  Improves compatibility with the game window
 
 ---
 
-### Current Actions
+## 📦 Requirements
 
-- **Check_mail**: Automatically checks mail, reads all and accepts all rewards before returing to the main screen.
-- **Help_members**: Automatically clicks the help members icon.
-
+- Python **3.8+**
+- Windows OS
+- _Doomsday: Last Survivors_ (Official Windows App)
 
 ---
 
-### Prerequisites
+## ⚙️ Installation
 
-- **Python 3.x**
-- Install dependencies:
+Install required dependencies:
 
 ```bash
-pip install pyautogui pygetwindow keyboard
+pip install pyautogui pygetwindow keyboard pynput
 ```
 
+ 📁 Project Structure
+
+    Doomsday_AutoActionClicker/
+    ├── main.py
+    ├── create_action.py
+    ├── actions/
+    │   ├── action_zombie_farm.py (example)
+    │   ├── action_check_mail.py (example)
+    │   └── action_help_members.py (example)
+
 ---
 
-### Setup Instructions
+## 🚀 Getting Started
 
-#### 1. **Place Doomsday Window in Top-Right Corner**
+### 1. Run Terminal as Administrator (Recommended)
 
-Make sure you move the **Doomsday: Last Survivors** game window to the **top-right corner** of your screen and do not move it again. All coordinates will be based on this position.
+- Right-click **Command Prompt** or **PowerShell**
+- Click **Run as administrator**
 
-#### 2. **Clone or Create Project Directory**
+---
 
-- Place `main.py` in the root folder.
-- Create an `/actions` directory for the action files (create using `create_actin.py` or clone the ones from this directory).
-- Place `create_action.py` in the root to build new actions if needed.
-
-#### 3. **Run Terminal as Administrator**
-
-To ensure proper functionality:
-
-- Open Command Prompt **as Administrator**
-- Navigate to the folder containing the software:
+### 2. Navigate to Project Folder
 
 ```bash
-cd "C:\your\path\to\this\software"
+cd "C:\your\path\to\DLSAutoBot"
 ```
 
-- Make sure the terminal is small and docked to the **left side of your screen**, so it doesn't overlap the Doomsday game.
+## 3. Create Custom Actions (Recommended)
 
----
-
-### Creating Action Scripts
-
-> Only required when adding new actions
-
-1. Start the game and position the window in the **top-right corner**.
-2. Launch `create_action.py`:
-
-```bash
+### Run the action creator:
+``` 
 python create_action.py
 ```
+During setup, you’ll be prompted for:
 
-3. When prompted:
-   - Enter a name for your action (e.g., `check_mail`)
-4. Hover your mouse over a desired click position and press **`C`** to capture it.
-5. Repeat for all clicks needed in the action (including navigation back).
-6. Press **`Q`** to save and exit. The action script will be saved in the `/actions` folder automatically.
 
----
+- Action name (e.g. zombie_farm)
+- Cooldown in minutes
+  0 = no cooldown
+  15 = runs every 15 minutes
+  
+### 🎯 Recording Controls:
+- Hover mouse over a button → Press C
+- Repeat for each step in the sequence
+- Press Q to finish recording
 
-### Running Doomsday_AutoActionClicker
-
-1. Open Doomsday and ensure the window is in the **top-right corner**.
-2. In your admin terminal (small and on the left side), run:
-
-```bash
+## 4. Run the Bot
+```
 python main.py
 ```
+- Click once on the game window to focus it
+You can minimize the terminal
+Press ESC anytime to safely stop
 
-3. After the script launches, **click the game window** to bring it into focus.
 
----
+## ⏱️ Cooldown System
 
-### Action Script Example
+### Each action file contains its own cooldown:
+```
+COOLDOWN_MINUTES = 15  # 0 = no cooldown
+Behavior:
+Actions on cooldown are skipped
+If all actions are on cooldown → bot waits and retries automatically
+```
 
-Each action script in `/actions` must define an `execute()` function using a sequence of clicks.
+## 🧩 Example Action File
 
-```python
+```
 import time
-from auto_farm_base import click_in_window
+import random
+from main import click_in_window
+
+COOLDOWN_MINUTES = 15
 
 def execute():
+    print("Executing action_zombie_farm")
+
     click_sequence = [
-        (300, 400, 0.5),  # Click mail icon
-        (450, 550, 0.8),  # Click Read All
-        (200, 150, 0.6),  # Back button
+        (271, 613, 1.0),
+        (850, 420, 1.0),
     ]
-    print("Executing mail collection")
+
     for x, y, delay in click_sequence:
         if click_in_window(x, y):
-            print(f"Clicked at ({x}, {y}), waiting {delay}s")
-            time.sleep(delay)
+            print(f"Clicked at ({x}, {y})")
+            time.sleep(random.uniform(delay * 0.8, delay * 1.3))
         else:
-            print(f"Skipped click at ({x}, {y}) due to window error")
-```
-
----
-
-### Directory Structure
+            print(f"Skipped ({x}, {y})") 
 
 ```
-Doomsday_AutoActionClicker/
-├── main.py
-├── create_action.py
-├── actions/
-│   ├── check_mail.py
-│   └── other_actions.py
+            
+## 💡 Tips & Best Practices
+- Keep the game window visible (not minimized)
+- Run as Administrator for best results
+- You can freely move/resize the game window
+- Adjust delays in main.py to control speed
+- Use longer cooldowns for repetitive actions
+- Avoid overly fast or robotic behavior patterns
+
+## ⚠️ Limitations
+- Only supports the official Windows version of the game
+- UI changes in the game may break recorded actions
+- May not work properly if the game is minimized
+
+## ⚖️ Disclaimer
+```
+This project is for educational purposes only.
+Automation tools may violate the game's Terms of Service.
+Use at your own risk.
 ```
 
----
+## 📜 License
 
-### Tips & Notes
+Free to use, modify, and distribute.
+Attribution is appreciated but not required.
 
-- Use `pyautogui.displayMousePosition()` if you need to manually inspect coordinates.
-- Adjust delays inside each action script to control pacing between clicks.
-- You can edit the `MIN_DELAY` and `MAX_DELAY` values in `main.py` to slow down or speed up between actions (it randomizes order and lenth based on these).
-- Click the termial & use `CRTL + C` exit the automation at any time.
+## ❤️ Contributing
 
----
+### Pull requests, improvements, and ideas are welcome!
+Feel free to fork and build your own features.
 
-### Limitations
+## ⭐ Support
 
-- **Window must stay in the top-right**. Moving it will break coordinate mapping.
-- Actions must be updated if Doomsday UI changes.
-- Use responsibly; automation can violate game terms of service.
-
----
-
-### License
-
-You may use this code as you please, all I ask is that you credit the author if reused or modified. This is provided for education purposes. (thestinkyferret)
+If you find this project useful, consider giving it a ⭐ on GitHub!
