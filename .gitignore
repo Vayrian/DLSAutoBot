@@ -1,0 +1,43 @@
+# Python cache and compiled files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environments
+venv/
+env/
+.venv/
+ENV/
+
+# Logs and temporary files
+*.log
+*.tmp
+temp/
+tmp/
+
+# Windows system files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# macOS (in case)
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# IDE / Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Environment / config files (if you have secrets)
+.env
+config.json
+secrets.py
+
+# Build / distribution folders
+build/
+dist/
+*.egg-info/
